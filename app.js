@@ -21,8 +21,17 @@ console.log(collections);
 
 //How to know if a collection exists
 const bandera = collections.some((collection => collection.name == "users"));
-console.log(bandera); */
+console.log(bandera);
 
 //Create Collections
 let res = await db.createCollection("siMor");
-console.log(res);
+console.log(res); */
+
+//Insert ONE Data to the Collection
+let colleccion = db.collection("siMor");
+const res = await colleccion.insertOne({
+    name: "Vicky",
+    surname: "Montañez",
+    point: "jijijiji"
+})
+console.log(res); 
