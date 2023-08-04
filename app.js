@@ -34,9 +34,14 @@ const res = await colleccion.insertOne({
     surname: "Montañez",
     point: "jijijiji"
 })
-console.log(res);  */
+console.log(res); 
 
  //Insert Many Data to the Collection
  let colleccion = db.collection("siMor");
  const insertResult = await colleccion.insertMany([{ a: 1 }, { a: 2 }, { a: 3 }]);
- console.log('Inserted documents =>', insertResult);
+ console.log('Inserted documents =>', insertResult); */
+
+// Find all data submitted to a collection 
+let colleccion = db.collection("siMor");
+const findResult = await colleccion.find({}).toArray();
+console.log('Found documents =>', findResult);
