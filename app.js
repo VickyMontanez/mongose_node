@@ -15,10 +15,14 @@ app.listen(config,()=>{
 
 let db = await conx();
 
-//List all collections
+/* //List all collections
 const collections = await db.listCollections().toArray();
 console.log(collections);
 
 //How to know if a collection exists
 const bandera = collections.some((collection => collection.name == "users"));
-console.log(bandera);
+console.log(bandera); */
+
+//Create Collections
+let res = await db.createCollection("siMor");
+console.log(res);
