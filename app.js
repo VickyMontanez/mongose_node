@@ -25,7 +25,7 @@ console.log(bandera);
 
 //Create Collections
 let res = await db.createCollection("siMor");
-console.log(res); */
+console.log(res);
 
 //Insert ONE Data to the Collection
 let colleccion = db.collection("siMor");
@@ -34,4 +34,9 @@ const res = await colleccion.insertOne({
     surname: "Montañez",
     point: "jijijiji"
 })
-console.log(res); 
+console.log(res);  */
+
+ //Insert Many Data to the Collection
+ let colleccion = db.collection("siMor");
+ const insertResult = await colleccion.insertMany([{ a: 1 }, { a: 2 }, { a: 3 }]);
+ console.log('Inserted documents =>', insertResult);
