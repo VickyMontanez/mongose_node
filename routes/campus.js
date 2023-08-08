@@ -15,6 +15,18 @@ appcampus.get("/", limitGrt(), async (req, res) => {
     res.send(result);
 });
 
+//Get Document by Id
+appcampus.get("/:id", limitGrt(), async (req, res) => {
+    if(!req.rateLimit) return;
+    let id = parseInt(req.params.id);
+    let db = await conx();
+    let colleccion = db.collection("test");
+    let result = await colleccion.find({
+        id: id
+    }).toArray();
+    res.send(result);
+});
+
 //Post a Document into a Collection
 appcampus.post("/", async (req, res) => {
     try {
