@@ -28,7 +28,7 @@ appcampus.get("/:id", limitGrt(), async (req, res) => {
 });
 
 //Post a Document into a Collection
-appcampus.post("/", async (req, res) => {
+appcampus.post("/insertOne", async (req, res) => {
     try {
         const { id, name, surname, age } = req.body;
         if (!id || !name || !surname || !age) {
@@ -43,6 +43,29 @@ appcampus.post("/", async (req, res) => {
             surname: surname,
             age: age,
         });
+        res.status(201).json(result);
+    } catch (error) {
+        console.error('Error inserting data:', error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
+//Post Many Documents into a Collection
+appcampus.post("/insertMany", async (req, res) => {
+    try {
+        const data = req.body;
+        
+        const documents = data.map(item => ({
+            _id: new ObjectId(),
+            id: item.id,
+            name: item.name,
+            surname: item.surname,
+            age: item.age,
+        }));
+
+        const db = await conx();
+        const collection = db.collection('test');
+        const result = await collection.insertMany(documents);
         res.status(201).json(result);
     } catch (error) {
         console.error('Error inserting data:', error);
