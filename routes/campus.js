@@ -1,12 +1,12 @@
-
+import { ObjectId } from "mongodb";
+import {conx} from "../db/atlas.js"
+import { limitGrt } from "../middleware/limit.js";
 import { Router } from "express";
-import bodyParser from "body-parser";
-import configGET from "../middleware/limit.js";
+const appCampus = Router();
 
-const appcampus = Router();
-
-appcampus.get("/", configGET, (req, res)=>{
-    res.send("Hola")
+appCampus.get("/", limitGrt(), async(req,res)=>{
+    if(!req.rateLimit) return;
+    res.send("Hola :)")
 });
 
-export default appcampus; 
+export default appCampus;
