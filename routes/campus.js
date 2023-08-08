@@ -1,12 +1,17 @@
+import express from "express";
+import { conx } from "../db/atlas.js";
 import { ObjectId } from "mongodb";
-import {conx} from "../db/atlas.js"
 import { limitGrt } from "../middleware/limit.js";
-import { Router } from "express";
-const appCampus = Router();
 
-appCampus.get("/", limitGrt(), async(req,res)=>{
-    if(!req.rateLimit) return;
-    res.send("Hola :)")
+const appcampus = express();
+appcampus.use(express.json());
+
+//Get ALL the Documents in the Collection
+appcampus.get("/", limitGrt(), async (req, res) => {
+    let db = await conx();
+    let colleccion = db.collection("test");
+    let result = await colleccion.find({}).toArray();
+    res.send(result);
 });
 
-export default appCampus;
+export default appcampus; 
