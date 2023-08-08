@@ -73,4 +73,39 @@ appcampus.post("/insertMany", async (req, res) => {
     }
 });
 
+//Update One Document by id
+appcampus.put("/updateOne/:id", async (req, res) => {
+    try {
+        const { id } = req.params
+        const { name, surname, age } = req.body;
+/*         let id = parseInt(req.params.id); */
+
+        if (!name || !surname || !age) {
+            return res.status(400).json({ error: 'Missing required fields' });
+        }
+
+        const db = await conx();
+        const collection = db.collection('test');
+
+        const results = [];
+
+        const filter = { id: parseInt(id) }
+            const updateDocument = {
+                $set: {
+                    name: name,
+                    surname: surname,
+                    age: age
+                }
+            };
+
+            const result = await collection.updateOne(filter, updateDocument);
+            results.push(result);
+        
+        res.status(201).json(results);
+    } catch (error) {
+        console.error('Error updating data:', error);
+        res.status(500).json({ error: 'An error occurred' });
+    }
+});
+
 export default appcampus; 
